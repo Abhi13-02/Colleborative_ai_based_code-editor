@@ -31,7 +31,7 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
   const name = auth.currentUser.displayName;
 
   const messagesRef = collection(firestore, "messages");
-  const messagesQuery = query(messagesRef, orderBy("createdAt"), limit(25));
+  const messagesQuery = query(messagesRef, orderBy("createdAt"));
 
   const messagesEndRef = useRef(null);
 
@@ -74,6 +74,7 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
       }
   
       const data = await response.json();
+      console.log("ai response data" ,data.aiResponse);
       return data.aiResponse;
     } catch (error) {
       console.error("API Error:", error);
@@ -91,14 +92,15 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
     let aiPrompt = null;
     let userMessage = newMessage;
 
-    console.log(aiMatch);
     if (aiMatch) {
       aiPrompt = aiMatch[1].trim();
     }
 
+    console.log("AI Prompt:", aiPrompt);
+    console.log("User Message:", userMessage);
     try {
       if (userMessage) {
-        await addDoc(messagesRef, {
+        const messageRef = await addDoc(messagesRef, {
           text: userMessage,
           createdAt: serverTimestamp(),
           imageUrl,
@@ -107,6 +109,8 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
           workspaceId,
         });
       }
+
+      console.log(messagesRef,"ewfweewf");
 
       if (aiPrompt) {
         const aiResponse = await generateAIResponse(aiPrompt);

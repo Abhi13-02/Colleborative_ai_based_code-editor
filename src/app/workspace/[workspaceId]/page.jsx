@@ -20,7 +20,7 @@ const Workspace = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(true);
 
-
+  // Fetch workspace data
   useEffect(() => {
     const fetchWorkspace = async () => {
       if (!workspaceId) return;
