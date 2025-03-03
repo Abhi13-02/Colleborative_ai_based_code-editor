@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 
 export default function HomePage() {
   const features = [
-    { icon: <Users />, title: "Real-time Collaboration", description: "ork together seamlessly with live code editing and live cursor support.", titleColor: "text-green-400" },
+    { icon: <Users />, title: "Real-time Collaboration", description: "Work together seamlessly with live code editing and live cursor support.", titleColor: "text-green-400" },
     { icon: <Sparkles />, title: "AI-driven Tools", description: "Get intelligent code suggestions instantly with comprehensive documentation.", titleColor: "text-yellow-400" },
     { icon: <Code />, title: "Smart Linting", description: "Identify and fix syntax errors effortlessly as you type with smart AI suggestions.", titleColor: "text-red-400" },
     { icon: <GitBranch />, title: "Real-time Chatbot Support", description: "Integrated AI chat bot for instant help and guidance.", titleColor: "text-purple-400" },
