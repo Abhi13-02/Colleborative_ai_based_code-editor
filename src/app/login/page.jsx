@@ -18,6 +18,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { auth, db } from "@/config/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
+import { LoadingSpinner } from "@/components/ui/Loading";
 
 const toastOptions = {
   position: "top-right",
@@ -143,7 +144,14 @@ const Login = () => {
                   disabled={isLoading}
                   className={`${isLoading ? "bg-gray-500" : "bg-blue-600"} hover:bg-blue-700 text-sm font-medium py-2 px-4 rounded-md text-white`}
                 >
-                  {isLoading ? "Sending..." : "Send Link"}
+                  {isLoading ? (
+                    <div className="flex items-center space-x-2">
+                      <LoadingSpinner size="sm" variant="muted" />
+                      <span>Sending...</span>
+                    </div>
+                  ) : (
+                    "Send Link"
+                  )}
                 </Button>
               </div>
             </DialogContent>

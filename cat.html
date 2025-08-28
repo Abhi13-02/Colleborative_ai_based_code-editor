@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        const apiKey = ""; // Add your Google AI API Key here
+        const apiUrl = https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey};
+
+        async function postData() {
+            const message = document.getElementById('message').value;
+            console.log(message);
+
+            if (apiKey === "") {
+                console.log("You forgot to add your own key!");
+                return;
+            }
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        contents: [
+                            {
+                                parts: [
+                                    {
+                                        text: Write a JavaScript code for this question: ${message}
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data.candidates && data.candidates.length > 0) {
+                    const responseText = data.candidates[0].content.parts[0].text;
+                    const card = document.createElement('pre');
+                    card.innerText = responseText;
+                    document.getElementById('chat-area').appendChild(card);
+                } else {
+                    console.error("No valid response from Gemini.");
+                }
+            } catch (error) {
+                console.error("Error communicating with Gemini API:", error);
+            }
+        }
+    </script>
+
+    </script>
+    <style>
+        .dark {
+            background-color: #1a1a1a;
+            color: #FFF;
+        }
+
+        .card {
+            background-color: #8a8a8a;
+            color: #FFF;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input {
+            margin: 0 auto;
+            margin-top: 30px;
+            height: 200px;
+            width: 80%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="dark">
+    <h1>Get any LEETCode solution in javascript | chatGPT</h1>
+    <form>
+        <label for="message">Enter your code statement: </label>
+        <textarea class="input" id="message" cols="30" rows="10"></textarea>
+        <button type="button" onclick="postData()">Send me</button>
+        <div id="chat-area">test</div>
+    </form>
+</body>
+
+</html>

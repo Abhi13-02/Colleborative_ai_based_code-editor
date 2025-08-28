@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LoadingSpinner, LoadingPulse } from "@/components/ui/Loading";
 
 const toastOptions = {
   position: "top-right",
@@ -125,14 +126,28 @@ export default function SignUpPage() {
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white"
           >
-            {loading ? "Processing..." : "Sign Up"}
+            {loading ? (
+              <div className="flex items-center space-x-2">
+                <LoadingSpinner size="sm" variant="muted" />
+                <span>Creating account...</span>
+              </div>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
           <Button
             onClick={handleGoogleSignIn}
             disabled={loading}
             className="w-full bg-red-600 hover:bg-red-700 text-white"
           >
-            {loading ? "Processing..." : "Continue with Google"}
+            {loading ? (
+              <div className="flex items-center space-x-2">
+                <LoadingSpinner size="sm" variant="muted" />
+                <span>Signing in...</span>
+              </div>
+            ) : (
+              "Continue with Google"
+            )}
           </Button>
           <p className="text-center text-sm text-slate-400">
             Already have an account?{" "}
@@ -170,7 +185,14 @@ export default function SignUpPage() {
               disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 text-white"
             >
-              {loading ? "Verifying..." : "Verify Code"}
+              {loading ? (
+                <div className="flex items-center space-x-2">
+                  <LoadingSpinner size="sm" variant="muted" />
+                  <span>Verifying...</span>
+                </div>
+              ) : (
+                "Verify Code"
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>
