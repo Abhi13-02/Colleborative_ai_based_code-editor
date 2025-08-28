@@ -20,6 +20,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { ClipboardDocumentIcon, CheckIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { MessageSquarePlus, Send, Sparkles, Trash, Trash2, X, XCircle } from "lucide-react";
+import { InlineLoader } from "@/components/ui/Loading";
 
 function Chatroom({ workspaceId, setIsChatOpen }) {
   const [messages, setMessages] = useState([]);
@@ -74,6 +75,7 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
       }
   
       const data = await response.json();
+      console.log("ai response data" ,data.aiResponse);
       return data.aiResponse;
     } catch (error) {
       console.error("API Error:", error);
@@ -91,14 +93,15 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
     let aiPrompt = null;
     let userMessage = newMessage;
 
-    console.log(aiMatch);
     if (aiMatch) {
       aiPrompt = aiMatch[1].trim();
     }
 
+    console.log("AI Prompt:", aiPrompt);
+    console.log("User Message:", userMessage);
     try {
       if (userMessage) {
-        await addDoc(messagesRef, {
+        const messageRef = await addDoc(messagesRef, {
           text: userMessage,
           createdAt: serverTimestamp(),
           imageUrl,
@@ -107,6 +110,8 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
           workspaceId,
         });
       }
+
+      console.log(messagesRef,"ewfweewf");
 
       if (aiPrompt) {
         const aiResponse = await generateAIResponse(aiPrompt);
@@ -286,8 +291,12 @@ function Chatroom({ workspaceId, setIsChatOpen }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full text-gray-400">
-        Loading messages...
+      <div className="h-full">
+        <InlineLoader 
+          message="Loading messages" 
+          variant="primary"
+          size="lg"
+        />
       </div>
     );
   }

@@ -36,11 +36,15 @@ const buttonVariants = cva(
 
 const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : "button"
+  
+  // Filter out framer-motion props when using regular button
+  const { whileHover, whileTap, animate, initial, exit, transition, ...restProps } = props;
+  
   return (
     (<Comp
       className={cn(buttonVariants({ variant, size, className }))}
       ref={ref}
-      {...props} />)
+      {...(asChild ? props : restProps)} />)
   );
 })
 Button.displayName = "Button"

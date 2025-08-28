@@ -4,6 +4,7 @@ import { useState, useEffect, createContext, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation"; // ✅ Use usePathname
 import { auth } from "@/config/firebase";
+import { LoadingScreen } from "@/components/ui/Loading";
 
 const AuthContext = createContext(null);
 
@@ -36,7 +37,7 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, [pathname, router]); // ✅ Ensure pathname updates trigger re-runs
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingScreen message="Initializing..." description="Setting up your secure session" />;
 
   return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 }
