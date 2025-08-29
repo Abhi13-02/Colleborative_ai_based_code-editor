@@ -226,9 +226,9 @@ const Dashboard = () => {
                         <h2 className="text-3xl font-bold text-blue-400 tracking-wide group-hover:text-blue-300 transition-colors">
                           {ws.name}
                         </h2>
-                        <p className="text-sm text-gray-300 font-mono">
+                        {/* <p className="text-sm text-gray-300 font-mono">
                           {ws.isPublic ? "🔓 Public Workspace" : "🔒 Private Workspace"}
-                        </p>
+                        </p> */}
                 
                         <div className="flex justify-between items-center">
                           <p className="text-sm text-yellow-400 font-medium">Role: {ws.role}</p>
