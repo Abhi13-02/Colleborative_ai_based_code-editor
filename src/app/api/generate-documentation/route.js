@@ -9,7 +9,7 @@ export async function POST(request) {
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 
         const prompt = `
@@ -41,3 +41,6 @@ export async function POST(request) {
         return NextResponse.json({ error: "Failed to generate documentation" }, { status: 500 });
     }
 }
+
+
+
