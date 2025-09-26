@@ -25,7 +25,7 @@ export async function POST(request) {
 async function fixCodeWithAI(code) {
     try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         // Create a prompt to fix syntax errors without needing language specification
         const prompt = `Fix the syntax errors in the following code:\n\n${code}\n\nReturn only the corrected code without any comments or formatting like markdown.also if there are any existing comments , dont remove it `;
@@ -39,3 +39,6 @@ async function fixCodeWithAI(code) {
         return null;
     }
 }
+
+
+
